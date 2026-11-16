@@ -1,0 +1,255 @@
+/* =========================================================
+   极简书签 · 高密度版（链接底色加深）
+   适用于原始 index.html 结构（block / h3 / h5 / a / br）
+   ========================================================= */
+
+/* ---------- 重置与变量 ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f4f7fb;
+  --card-bg: #ffffff;
+  --text-primary: #1e2b3c;
+  --text-secondary: #56677a;
+  --accent: #2563eb;
+  --accent-light: #e8f0fe;
+  --accent-hover: #1d4ed8;
+  --border-light: #e3e9f1;
+  --shadow-sm: 0 1px 4px rgba(30, 43, 60, 0.04), 0 1px 2px rgba(30, 43, 60, 0.03);
+  --shadow-hover: 0 8px 20px rgba(30, 43, 60, 0.08), 0 2px 6px rgba(30, 43, 60, 0.03);
+  --radius-card: 12px;
+  --radius-link: 6px;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "PingFang SC", "Microsoft YaHei", "Noto Sans", sans-serif;
+
+  /* 链接色板（新增，便于统一调整） */
+  --link-bg: #eef2f7;
+  --link-bg-hover: #dbe8ff;
+  --link-border: #dce3ed;
+  --link-border-hover: #a8c6ff;
+  --link-text: #3d4f63;
+  --link-text-hover: #1d4ed8;
+
+  --link-hl-bg: #cfe0ff;
+  --link-hl-bg-hover: #2563eb;
+  --link-hl-border: #9dbfff;
+  --link-hl-text: #1a4fcf;
+
+  --link-long-bg: #e4ebf3;
+}
+
+/* ---------- 页面基础 ---------- */
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.4;
+  background-color: var(--bg);
+  padding: 1.1rem 1rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- 卡片（block） ---------- */
+.block {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 0.85rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1.1rem 0.95rem;
+  transition: box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 0.3rem;
+  row-gap: 0.24rem;
+}
+
+.block:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.block:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 标题 ---------- */
+.block h3 {
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.6rem;
+  position: relative;
+  align-self: flex-start;
+  border-bottom: 1.5px solid var(--accent-light);
+  line-height: 1.3;
+  flex-basis: 100%;
+  width: 100%;
+}
+
+.block h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1.5px;
+  width: 32px;
+  height: 1.5px;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+/* 子分类标题 */
+.block h5 {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0.6rem 0 0.35rem;
+  padding-left: 0.3rem;
+  border-left: 2.5px solid var(--accent);
+  line-height: 1.2;
+  flex-basis: 100%;
+  width: 100%;
+}
+
+.block h5:first-of-type {
+  margin-top: 0.1rem;
+}
+
+/* ---------- 链接（底色加深） ---------- */
+.block a {
+  display: inline-block;
+  flex: 0 1 auto;
+  text-decoration: none;
+  color: var(--link-text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding: 0.22rem 0.55rem;
+  margin: 0;
+  border-radius: var(--radius-link);
+  border: 1px solid var(--link-border);
+  background-color: var(--link-bg);
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, box-shadow 0.15s ease;
+  max-width: 100%;
+  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 超长链接允许换行显示完整 */
+.block a[href*="oauth2/authorize"],
+.block a[href*="itsm.services.sap"],
+.block a[href*="figma.com/design"],
+.block a[href*="feishu.cn"] {
+  white-space: normal;
+  word-break: break-all;
+  font-size: 0.72rem;
+  background-color: var(--link-long-bg);
+  border-color: #d3dce6;
+}
+
+.block a:hover {
+  background-color: var(--link-bg-hover);
+  color: var(--link-text-hover);
+  border-color: var(--link-border-hover);
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
+}
+
+/* 高亮链接（更强对比） */
+.block a.hight-light {
+  background-color: var(--link-hl-bg);
+  color: var(--link-hl-text);
+  font-weight: 550;
+  border-color: var(--link-hl-border);
+}
+
+.block a.hight-light:hover {
+  background-color: var(--link-hl-bg-hover);
+  color: #ffffff;
+  border-color: var(--link-hl-bg-hover);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* 删除线链接 */
+.block a[style*="line-through"] {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.block a[style*="line-through"]:hover {
+  opacity: 0.8;
+}
+
+/* ---------- <br> 分组换行 ---------- */
+.block br {
+  display: block;
+  content: "";
+  height: 0;
+  margin-top: 0.25rem;
+  line-height: 0;
+  font-size: 0;
+  flex-basis: 100%;
+  width: 100%;
+}
+
+/* ---------- 响应式 ---------- */
+@media (min-width: 1100px) {
+  .block a {
+    font-size: 0.8rem;
+    padding: 0.24rem 0.6rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .block {
+    padding: 0.75rem 0.9rem 0.85rem;
+  }
+  .block a {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 0.7rem 0.6rem 1.5rem;
+  }
+  .block {
+    padding: 0.65rem 0.75rem 0.75rem;
+    margin-bottom: 0.65rem;
+    border-radius: 10px;
+  }
+  .block h3 {
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+  }
+  .block a {
+    font-size: 0.75rem;
+    padding: 0.24rem 0.55rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 380px) {
+  .block a {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.45rem;
+  }
+}
